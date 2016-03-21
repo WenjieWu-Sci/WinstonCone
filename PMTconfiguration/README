@@ -1,0 +1,2 @@
+PMTconfigure.C: used to generate .csv file include the position (theta and phi) of all PMT, which could be used as input file to construct the geometry of central detector
+PMTPosition.C : used to generate .root file include the position (theta and phi) of all PMT, which is helpful in analysis stage to indicate the position of one specific PMT
