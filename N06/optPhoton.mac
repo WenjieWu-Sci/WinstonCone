@@ -1,0 +1,27 @@
+/control/execute vis.mac
+/control/verbose 2
+#
+## planar beam
+#
+/gps/verbose 1
+/gps/particle opticalphoton
+#
+# the incident surface is in the x-y plane
+/gps/pos/type Plane
+/gps/pos/rot1 1 0 0
+/gps/pos/rot2 0 1 0
+#
+# the incident surface is a circle whose radius is 
+/gps/pos/shape Circle
+/gps/pos/centre 0. 51.3395 100. cm
+/gps/pos/radius 32. cm
+
+# set direction
+/gps/direction 0 -0.8391 -1
+# set energy
+/gps/ene/mono 3 eV
+
+#
+/tracking/verbose 1
+#
+/run/beamOn 1000

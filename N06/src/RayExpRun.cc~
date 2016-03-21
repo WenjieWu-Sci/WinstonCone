@@ -1,0 +1,73 @@
+#include "RayExpRun.hh"
+#include "G4Event.hh"
+#include "G4HCofThisEvent.hh"
+#include "G4SDManager.hh"
+#include "RayExpPMTSD.hh"
+#include "RayExpPMTHit.hh"
+#include "RayExpPMTSDv2.hh"
+#include "RayExpPMTHitv2.hh"
+
+RayExpRun::RayExpRun() {
+    //HCID = SDMan->GetCollectionID("RayExpPMTHitsCollection");
+    EnterHCID = -1;
+    ExitHCID = -1;
+    EnterNum = 0;
+    ExitNum = 0;
+}
+
+RayExpRun::~RayExpRun() {
+}
+
+void RayExpRun::RecordEvent(const G4Event* evt) {
+    if (EnterHCID<0) {
+        EnterHCID = G4SDManager::GetSDMpointer()->GetCollectionID("PMTCollection");
+//        G4cout << "entranSD : " << EnterHCID << G4endl;
+    }
+    if (ExitHCID<0) {
+        ExitHCID = G4SDManager::GetSDMpointer()->GetCollectionID("PMTCollectionv2");
+//        G4cout << "ExitSD : " << ExitHCID << G4endl;
+    }
+
+    RayExpPMTHitsCollection* EnterCHC = 0;
+    RayExpPMTHitsCollectionv2* ExitCHC = 0;
+    G4HCofThisEvent* HCE = evt->GetHCofThisEvent();
+    if (HCE) {
+        EnterCHC = static_cast<RayExpPMTHitsCollection*>(HCE->GetHC(EnterHCID));
+        ExitCHC = static_cast<RayExpPMTHitsCollectionv2*>(HCE->GetHC(ExitHCID));
+    }
+    if (EnterCHC) {
+        for (G4int i=0;i<EnterCHC->entries();i++) {
+            G4String thePrePVname = (*EnterCHC)[i]->GetPrePVname();
+            G4String thePostPVname = (*EnterCHC)[i]->GetPostPVname();
+            G4double thePreZ = (*EnterCHC)[i]->GetPreZcoordinate();
+            G4double thePostZ = (*EnterCHC)[i]->GetPostZcoordinate();
+            G4cout << "Enter aperture : " << G4endl;
+            G4cout << "thePrePVname : " << thePrePVname << G4endl;
+            G4cout << "thePostPVname : " << thePostPVname << G4endl;
+            if (thePrePVname=="entra_phys" && thePostPVname=="World" && thePreZ < thePostZ) {
+                EnterNum++;
+            }
+        }
+    }
+    if (ExitCHC) {
+        for (G4int i=0;i<ExitCHC->entries();i++) {
+            G4String thePrePVname = (*ExitCHC)[i]->GetPrePVname();
+            G4String thePostPVname = (*ExitCHC)[i]->GetPostPVname();
+            G4double thePreZ = (*ExitCHC)[i]->GetPreZcoordinate();
+            G4double thePostZ = (*ExitCHC)[i]->GetPostZcoordinate();
+            G4cout << "Exit aperture : " << G4endl;
+            G4cout << "thePrePVname : " << thePrePVname << G4endl;
+            G4cout << "thePostPVname : " << thePostPVname << G4endl;
+            if (thePrePVname=="collec_phys" && thePostPVname=="World" && thePreZ < thePostZ) {
+                ExitNum++;
+            }
+        }
+    }
+
+    G4cout << "##################################################" << G4endl;
+    G4cout << "Number of entering photon : " << EnterNum << G4endl;
+    G4cout << "Number of exiting photon : " << ExitNum << G4endl;
+    G4cout << "##################################################" << G4endl;
+
+    G4Run::RecordEvent(evt);
+}
