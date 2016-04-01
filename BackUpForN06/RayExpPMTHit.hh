@@ -1,0 +1,83 @@
+#ifndef RayExpPMTHit_h
+#define RayExpPMTHit_h 1
+
+#include "G4VHit.hh"
+#include "G4THitsCollection.hh"
+#include "G4Allocator.hh"
+#include "G4ThreeVector.hh"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+class RayExpPMTHit : public G4VHit {
+    public:
+        RayExpPMTHit();
+        ~RayExpPMTHit();
+        RayExpPMTHit(const RayExpPMTHit&);
+        const RayExpPMTHit& operator = (const RayExpPMTHit&);
+        int operator == (const RayExpPMTHit&) const;
+
+        inline void* operator new(size_t);
+        inline void operator delete(void*);
+
+    public:
+        void SetDetType (G4int type) { m_detType = type; };
+        void SetDetID    (G4int id)      { m_detID = id; };
+        void SetTrackID    (G4int track)      { m_trackID = track; };
+        void SetPDG    (G4int pdg)      { m_pdg = pdg; };
+        void SetKE    (G4double ke)      { m_KE = ke; };
+        void SetEdep   (G4double de)      { m_edep = de; };
+        void SetQuenchedEdep (G4double qde)       { m_quenchedE = qde;};
+        void SetPrePVname (G4String thePrePVname) {m_thePrePVname = thePrePVname; };
+        void SetPostPVname (G4String thePostPVname) {m_thePostPVname = thePostPVname; };
+        void SetPreZcoordinate(G4double PreZ) { m_PreZ = PreZ; };
+        void SetPostZcoordinate(G4double PostZ) {m_PostZ = PostZ;};
+
+        G4int GetDetType()      { return m_detType; };
+        G4int GetDetID()      { return m_detID; };
+        G4int GetTrackID()       { return m_trackID; };
+        G4int GetPDG()       { return m_pdg; };      
+        G4double GetKE()       { return m_KE; };      
+        G4double GetEdep()       { return m_edep; };      
+        G4double GetQuenchedEdep()  { return m_quenchedE;};
+        G4String GetPrePVname() {return m_thePrePVname;};
+        G4String GetPostPVname() {return m_thePostPVname;};
+        G4double GetPreZcoordinate() { return m_PreZ; };
+        G4double GetPostZcoordinate() { return m_PostZ; };
+
+    private:
+        G4int         m_detType;
+        G4int         m_detID;
+        G4int         m_trackID;
+        G4int         m_pdg;
+        G4double      m_KE;
+        G4double      m_edep;
+        G4double      m_quenchedE;
+        G4String      m_thePrePVname;
+        G4String      m_thePostPVname;
+        G4double      m_PreZ;
+        G4double      m_PostZ;
+};
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
+typedef G4THitsCollection<RayExpPMTHit> RayExpPMTHitsCollection;
+
+extern G4Allocator<RayExpPMTHit> RayExpPMTHitAllocator;
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+inline void* RayExpPMTHit::operator new(size_t) {
+    void* aHit;
+    aHit = (void*) RayExpPMTHitAllocator.MallocSingle();
+    return aHit;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+inline void RayExpPMTHit::operator delete(void *aHit) {
+    RayExpPMTHitAllocator.FreeSingle((RayExpPMTHit*) aHit);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif
