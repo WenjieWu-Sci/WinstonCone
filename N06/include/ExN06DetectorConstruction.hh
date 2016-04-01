@@ -38,6 +38,11 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+class R12860_PMTSolid;
+class G4VSolid;
+class G4LogicalVolume;
+class G4PVPlacement;
+
 class ExN06DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
@@ -46,6 +51,32 @@ class ExN06DetectorConstruction : public G4VUserDetectorConstruction
 
   public:
     G4VPhysicalVolume* Construct();
+
+  //private:
+  //  void init_variables();
+
+  private:
+    /* solid maker*/
+    R12860_PMTSolid* m_pmtsolid_maker;
+    // * pmt solid (a little big than body solid)
+    //  * body solid
+    //   + inner1
+    //   + inner2
+    G4VSolid* pmt_solid;
+    G4VSolid* body_solid;
+    G4VSolid* inner_solid;
+    G4VSolid* inner1_solid;
+    G4VSolid* inner2_solid;
+    /* logical volumes */
+    G4LogicalVolume* m_logical_pmt;
+    G4LogicalVolume* body_log;
+    G4LogicalVolume* inner1_log;
+    G4LogicalVolume* inner2_log;
+    /* physical volumes */
+    G4PVPlacement* m_phys_pmt;
+    G4PVPlacement* body_phys;
+    G4PVPlacement* inner1_phys;
+    G4PVPlacement* inner2_phys;
 
   private:
     G4double expHall_x;
@@ -59,6 +90,10 @@ class ExN06DetectorConstruction : public G4VUserDetectorConstruction
     G4double bubble_x;
     G4double bubble_y;
     G4double bubble_z;
+
+    G4double m_pmt_r;
+    G4double m_pmt_h;
+    G4double m_z_equator;
 
     G4int NumOfZ;
     G4double Zconc[200];

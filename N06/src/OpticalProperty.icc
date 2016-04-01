@@ -1,0 +1,34 @@
+  // Refer to the web site?
+  // or extended directly?
+  // Luckily:
+  // http://dayabay.ihep.ac.cn/websvn/filedetails.php?repname=Daya+Bay+offline+repository&path=%2Fdybgaudi%2Ftrunk%2FDetector%2FXmlDetDesc%2FDDDB%2Fmaterials%2Fpyrex.xml
+  // But pay attention!!! The data seems to be inconsistency.
+  double fPP_Pyrex[6] = {1.55*eV,  2.07*eV,  4.13*eV,  6.20*eV, 10.33*eV, 15.5*eV};
+  double fPP_PyrexABS[9] = {1.55*eV, 1.61*eV, 2.07*eV, 2.48*eV, 3.56*eV, 4.13*eV, 6.20*eV, 10.33*eV, 15.5*eV};
+  double fPyrexRINDEX[6] = {1.458, 1.458, 1.458, 1.458, 1.458, 1.458};
+  double fPyrexABSORPTION[9] = {0.1e-3*mm, 0.5e3*mm, 1.0e3*mm, 2.0e3*mm, 1.0e3*mm, // 0.1e-3*mm, 0.1e-3*mm};
+                                1.0e3*mm, 1.0e3*mm, 1.0e3*mm, 1.0e3*mm};
+
+  double fPP_PhC[4] = {1.55*eV, 6.20*eV, 10.33*eV, 15.5*eV};
+  double fPP_PhCQE[39] = {1.55000*eV, 1.80000*eV, 1.90000*eV, 2.00000*eV, 2.05000*eV, 2.16000*eV, 2.1900*eV,
+                          2.23000*eV, 2.27000*eV, 2.32000*eV, 2.36000*eV, 2.41000*eV, 2.46000*eV, 2.5000*eV,
+                          2.56000*eV, 2.61000*eV, 2.67000*eV, 2.72000*eV, 2.79000*eV, 2.85000*eV, 2.9200*eV,
+                          2.99000*eV, 3.06000*eV, 3.14000*eV, 3.22000*eV, 3.31000*eV, 3.40000*eV, 3.4900*eV,
+                          3.59000*eV, 3.70000*eV, 3.81000*eV, 3.94000*eV, 4.07000*eV, 4.10000*eV, 4.4000*eV, 5.00000*eV, 6.20000*eV,
+                          10.33*eV, 15.5*eV};
+  
+    G4double PhotonEnergy[32] =
+              { 2.034*eV, 2.068*eV, 2.103*eV, 2.139*eV,
+                2.177*eV, 2.216*eV, 2.256*eV, 2.298*eV,
+                2.341*eV, 2.386*eV, 2.433*eV, 2.481*eV,
+                2.532*eV, 2.585*eV, 2.640*eV, 2.697*eV,
+                2.757*eV, 2.820*eV, 2.885*eV, 2.954*eV,
+                3.026*eV, 3.102*eV, 3.181*eV, 3.265*eV,
+                3.353*eV, 3.446*eV, 3.545*eV, 3.649*eV,
+                3.760*eV, 3.877*eV, 4.002*eV, 4.136*eV };
+    G4double RefractiveIndex2[32] =
+              { 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
+                1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
+                1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
+                1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
+                1.00, 1.00, 1.00, 1.00 };

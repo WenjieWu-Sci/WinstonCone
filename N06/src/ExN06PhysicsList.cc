@@ -292,7 +292,7 @@ void ExN06PhysicsList::ConstructOp()
       pmanager->SetProcessOrderingToLast(theScintillationProcess, idxPostStep);
     }
     if (particleName == "opticalphoton") {
-      G4cout << " AddDiscreteProcess to OpticalPhoton " << G4endl;
+      G4cout << " Add DiscreteProcess to OpticalPhoton " << G4endl;
       pmanager->AddDiscreteProcess(theAbsorptionProcess);
       pmanager->AddDiscreteProcess(theRayleighScatteringProcess);
       pmanager->AddDiscreteProcess(theMieHGScatteringProcess);

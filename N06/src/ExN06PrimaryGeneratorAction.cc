@@ -63,7 +63,11 @@ ExN06PrimaryGeneratorAction::ExN06PrimaryGeneratorAction()
  // particleGun->SetParticleMomentumDirection(G4ThreeVector(1.,0.,0.));
  // particleGun->SetParticleEnergy(500.0*keV);
  
+ //   G4int n_particle = 1;
     particleGun = new G4GeneralParticleSource();
+ //   particleGun->SetParticlePosition(G4ThreeVector(0.0*cm,0.0*cm,1.*m));
+ //   particleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,-1.));
+ //   particleGun->SetParticleEnergy(3.0*eV);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
