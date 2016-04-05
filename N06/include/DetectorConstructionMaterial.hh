@@ -17,6 +17,7 @@ class DetectorConstructionMaterial {
         G4Material* GetAir(); 
         G4Material* GetPyrex(); 
         G4Material* GetVaccum();
+        G4Material* GetPhotocathode();
         
     private:
         G4Element* Si;
@@ -24,6 +25,7 @@ class DetectorConstructionMaterial {
         G4Element* B;
         G4Element* Na;
         G4Element* N;
+        G4Element* K;
 
     private:
         G4Material* Al;
@@ -34,6 +36,7 @@ class DetectorConstructionMaterial {
         G4Material* Na2O;
         G4Material* Pyrex;
         G4Material* Vacuum;
+        G4Material* Photocathode;
 };
 
 #endif

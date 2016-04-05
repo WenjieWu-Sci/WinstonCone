@@ -11,17 +11,18 @@ class RayExpRun : public G4Run {
     public:
         RayExpRun();
         virtual ~RayExpRun();
+        G4int GetExitNum(); 
 
     public:
         virtual void RecordEvent(const G4Event*);
 
     private:
-        G4int EnterHCID;
+//        G4int EnterHCID;
         G4int ExitHCID;
-        G4int EnterNum;
-        G4int ExitNum;
-        G4int HitEnterNum;
+//        G4int EnterNum;
+//        G4int HitEnterNum;
         G4int HitExitNum;
+        G4int ExitNum;
 
 };
 

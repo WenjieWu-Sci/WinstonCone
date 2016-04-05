@@ -1,3 +1,6 @@
+/det/angle 0
+#/det/WithLC 0
+#/det/update
 /control/execute vis.mac
 #/control/verbose 2
 #
@@ -7,14 +10,16 @@
 /gps/particle opticalphoton
 #
 # the incident surface is in the x-y plane
-/gps/pos/type Volume
-#/gps/pos/rot1 1 0 0
-#/gps/pos/rot2 0 1 0
+#/gps/pos/type Volume
+/gps/pos/type Plane
+/gps/pos/rot1 1 0 0
+/gps/pos/rot2 0 1 0
 #
 # the incident surface is a circle whose radius is 
-/gps/pos/shape Sphere
+#/gps/pos/shape Sphere
+/gps/pos/shape Circle
 /gps/pos/centre 0. 0. 400. cm
-/gps/pos/radius 3. cm
+/gps/pos/radius 55. cm
 
 # set direction
 #/gps/ang/type iso
@@ -25,4 +30,5 @@
 #
 #/tracking/verbose 1
 #
-/run/beamOn 1
+/run/initialize 
+/run/beamOn 100

@@ -23,54 +23,43 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-//
-// $Id: ExN06RunAction.cc,v 1.10 2006-06-29 17:54:31 gunter Exp $
-// GEANT4 tag $Name: not supported by cvs2svn $
-// 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-// Make this appear first!
-#include "G4Timer.hh"
+#ifndef ExN06DetectorConstructionMessenger_h
+#define ExN06DetectorConstructionMessenger_h 1
 
-#include "ExN06RunAction.hh"
-
-#include "G4Run.hh"
-
-#include "RayExpRun.hh"
+#include "G4UImessenger.hh"
+#include "globals.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ExN06RunAction::ExN06RunAction()
+class ExN06DetectorConstruction;
+class G4UIdirectory;
+class G4UIcommand;
+class G4UIcmdWithADoubleAndUnit;
+class G4UIcmdWithABool;
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+class ExN06DetectorConstructionMessenger: public G4UImessenger
 {
-  timer = new G4Timer;
-}
+  public:
+
+   ExN06DetectorConstructionMessenger(ExN06DetectorConstruction* );
+  ~ExN06DetectorConstructionMessenger();
+
+   void SetNewValue(G4UIcommand* ,G4String );
+
+  private:
+
+   ExN06DetectorConstruction* det;
+   
+   G4UIdirectory*          detDir;   
+
+   G4UIcmdWithADoubleAndUnit* armCmd;
+//   G4UIcmdWithABool* LCCmd;
+//   G4UIcommand* updateCmd;
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ExN06RunAction::~ExN06RunAction()
-{
-  delete timer;
-}
-
-G4Run* ExN06RunAction::GenerateRun() {
-    return (new RayExpRun());
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ExN06RunAction::BeginOfRunAction(const G4Run* aRun)
-{
-  G4cout << "### Run " << aRun->GetRunID() << " start." << G4endl; 
-  timer->Start();
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ExN06RunAction::EndOfRunAction(const G4Run* aRun)
-{   
-  timer->Stop();
-  G4cout << "number of event : " << aRun->GetNumberOfEvent() << G4endl;
-  G4cout << *timer << G4endl;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+#endif

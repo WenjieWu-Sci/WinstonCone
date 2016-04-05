@@ -14,6 +14,11 @@ endif
 .PHONY: all
 all: lib bin
 
+include $(G4INSTALL)/config/architecture.gmk
+
+CPPFLAGS += $(shell $(ROOTSYS)/bin/root-config --cflags)
+LDFLAGS += $(shell $(ROOTSYS)/bin/root-config --glibs)
+
 include $(G4INSTALL)/config/binmake.gmk
 
 visclean:

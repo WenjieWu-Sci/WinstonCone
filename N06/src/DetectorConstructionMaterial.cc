@@ -10,6 +10,7 @@ DetectorConstructionMaterial::DetectorConstructionMaterial(){
     B = new  G4Element("Boron",  "B", 5, 10.811*g/mole);
     Na = new G4Element("Sodium", "Na", 11., 22.98977*g/mole);
     N = new G4Element("Nitrogen", "N", 7 , 14.01*g/mole);
+    K = new G4Element("Potassium", "K", 19., 39.0983*g/mole);
 }
 
 DetectorConstructionMaterial::~DetectorConstructionMaterial() {;}
@@ -33,6 +34,16 @@ DetectorConstructionMaterial::GetBlacksheet() {
     Blacksheet = new G4Material("Blacksheet",density=0.95*g/cm3,2);
     Blacksheet->AddElement(nistManager->FindOrBuildElement(6), 1);
     Blacksheet->AddElement(nistManager->FindOrBuildElement(1), 2);
+
+    G4MaterialPropertiesTable *myST1 = new G4MaterialPropertiesTable();  			   
+    myST1->AddProperty("RINDEX", ENERGY_water, RINDEX_blacksheet, 60);
+    myST1->AddProperty("SPECULARLOBECONSTANT", PP, SPECULARLOBECONSTANT, 2);
+    myST1->AddProperty("SPECULARSPIKECONSTANT", PP, SPECULARSPIKECONSTANT, 2);
+    myST1->AddProperty("BACKSCATTERCONSTANT", PP, BACKSCATTERCONSTANT, 2);
+    myST1->AddProperty("REFLECTIVITY", ENERGY_water, REFLECTIVITY_blacksheet, 60);
+    myST1->AddProperty("EFFICIENCY", ENERGY_water, EFFICIENCY_blacksheet, 60);
+
+    Blacksheet->SetMaterialPropertiesTable(myST1);
 
     return Blacksheet;
 }
@@ -112,6 +123,25 @@ DetectorConstructionMaterial::GetVaccum() {
     return Vacuum;
 }
 
+G4Material*
+DetectorConstructionMaterial::GetPhotocathode() {
+    // Photocathode
+    //
+    G4double density = 5. *g/cm3; // true??
+    Photocathode = new G4Material("photocathode",density,1);
+    Photocathode->AddElement(K, 1);
+
+    G4MaterialPropertiesTable* PhotocathodeMPT = new G4MaterialPropertiesTable();
+    PhotocathodeMPT->AddProperty("RINDEX", fPP_PhC, fPhCRINDEX, 4);
+    PhotocathodeMPT->AddProperty("KINDEX", fPP_PhC, fPhCKINDEX, 4);
+    PhotocathodeMPT->AddProperty("REFLECTIVITY", fPP_PhC, fPhCREFLECTIVITY, 4);
+    PhotocathodeMPT->AddProperty("EFFICIENCY", fPP_PhCQE_1inch_20140620, fPhCEFFICIENCY_1inch_20140620, 43);
+    PhotocathodeMPT->AddProperty("THICKNESS", fPosZ, fTHICKNESS, 2);
+
+    Photocathode->SetMaterialPropertiesTable(PhotocathodeMPT);
+
+    return Photocathode;
+}
 
 
 

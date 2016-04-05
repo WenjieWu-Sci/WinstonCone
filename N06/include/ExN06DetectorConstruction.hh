@@ -36,6 +36,12 @@
 #include "globals.hh"
 #include "G4VUserDetectorConstruction.hh"
 
+#include "DetectorConstructionMaterial.hh"
+#include "ExN06DetectorConstructionMessenger.hh"
+#include <iostream>
+#include <string>
+#include "G4RotationMatrix.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class R12860_PMTSolid;
@@ -51,9 +57,13 @@ class ExN06DetectorConstruction : public G4VUserDetectorConstruction
 
   public:
     G4VPhysicalVolume* Construct();
+//    G4VPhysicalVolume* ConstructDetector();
 
-  //private:
-  //  void init_variables();
+  public:
+//    void SetSensitiveDet();
+    void setAngle(G4double angle);
+//    void setLC(G4bool WithLC);
+//    void UpdateGeometry();
 
   private:
     /* solid maker*/
@@ -79,17 +89,11 @@ class ExN06DetectorConstruction : public G4VUserDetectorConstruction
     G4PVPlacement* inner2_phys;
 
   private:
+    DetectorConstructionMaterial* MatTable;
+
     G4double expHall_x;
     G4double expHall_y;
     G4double expHall_z;
-
-    G4double tank_x;
-    G4double tank_y;
-    G4double tank_z;
-
-    G4double bubble_x;
-    G4double bubble_y;
-    G4double bubble_z;
 
     G4double m_pmt_r;
     G4double m_pmt_h;
@@ -101,6 +105,12 @@ class ExN06DetectorConstruction : public G4VUserDetectorConstruction
     G4double RconcMax[200];
     G4double RExtconcMin[200];
     G4double RExtconcMax[200];
+
+    G4RotationMatrix* RotatePMT;
+    G4double m_angle;
+    G4bool m_WithLC;
+
+    ExN06DetectorConstructionMessenger* messenger;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

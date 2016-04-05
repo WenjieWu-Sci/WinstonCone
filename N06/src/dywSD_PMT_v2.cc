@@ -114,11 +114,12 @@ G4bool dywSD_PMT_v2::ProcessHits(G4Step * step,G4TouchableHistory*)
     G4String thePostPVname = thePostPV->GetName();
     
     double edep = step->GetTotalEnergyDeposit();
+    G4cout << "edep is : " << edep << G4endl;
     // = only when the photon is detected by the surface, the edep is non-zero.
     // = the QE is already applied in the OpBoundaryProcess::DoAbsorption
-    //if (edep<=0.0) {
-    //    return false;
-    //}
+    if (edep<=0.0) {
+        return false;
+    }
     // TODO: get CE and angle response from data.
     // = decide the CE (collection efficiency)
     // = the CE can be different at different position
@@ -134,9 +135,9 @@ G4bool dywSD_PMT_v2::ProcessHits(G4Step * step,G4TouchableHistory*)
     // = DE: Detection Efficiency
     double de = ce*f_angle_response;
 
-    //if (G4UniformRand() > de) {
-    //    return false;
-    //}
+    if (G4UniformRand() > de) {
+        return false;
+    }
 
     
     // ========================================================================
@@ -301,15 +302,14 @@ double dywSD_PMT_v2::get_ce(const std::string& volname, const G4ThreeVector& loc
     // Info:
     // angle from 0 to 90 deg.
     // angle is from equator
-    std::cout << "Where am I : " << volname << std::endl;
-    std::cout << "Following is the CE Function detail:" << std::endl;
-    std::cout << "CE Function: " << m_ce_func_str << std::endl;
-    //m_ce_func = new TF1("ce", m_ce_func_str.c_str(), 0, 90);
-    std::cout << "CE Params: ";
-    for (int i = 0; i < m_ce_func_params.size(); ++i) {
-        std::cout << m_ce_func_params[i] << " "; 
-    //    m_ce_func->SetParameter(i, m_ce_func_params[i]);
-    }
+    //std::cout << "Where am I : " << volname << std::endl;
+    //std::cout << "Following is the CE Function detail:" << std::endl;
+    //std::cout << "CE Function: " << m_ce_func_str << std::endl;
+    //std::cout << "CE Params  : ";
+    //for (int i = 0; i < m_ce_func_params.size(); ++i) {
+    //    std::cout << m_ce_func_params[i] << " "; 
+    //}
+    //std::cout << std::endl;
 
     // calculate the angle theta
     double theta = localpos.theta(); // unit: radians
